@@ -1,0 +1,8 @@
+export const ADD_ITEM = 'ADD_ITEM';
+export const CHANGE_EDIT_STATUS = 'CHANGE_EDIT_STATUS';
+export const EDIT_ITEM = 'EDIT_ITEM';
+export const DELETE_ITEM = 'DELETE_ITEM';
+export const CHANGE_STATUS = 'CHANGE_STATUS';
+
+export const EDIT_CREATE_LABEL = 'EDIT_CREATE_LABEL';
+export const RESET_CREATE_LABEL = 'RESET_CREATE_LABEL';

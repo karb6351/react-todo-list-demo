@@ -1,45 +1,39 @@
-import React, {Component} from 'react';
+import React from 'react';
+import { connect } from "react-redux";
 
-class CreateInput extends Component {
+import * as TodoListAction from './actions/todoList/action';
 
-  constructor(props){
-    super(props);
-    this.state = {
-      label: ''
-    };
+function CreateInput({ createLabel, editCreateLabel, resetCreateLabel,addItem }) {
+
+  function create(){
+    addItem();
+    resetCreateLabel();
   }
 
-  updateLabel(event) {
-    this.setState({
-      ...this.state,
-      label: event.target.value
-    });
-  }
-
-  create(){
-    this.props.handleOnClick(this.state.label);
-    this.setState({
-      ...this.state,
-      label: ''
-    });
-  }
-
-  render() {
-    return (
-      <div className="card">
-        <div className="card-header">
-          Create Label Form
-        </div>
-        <div className="card-body">
-          <div className="form-group">
-            <label htmlFor="label">Task Label</label>
-            <input type="text" name="label" className="form-control" value={this.state.label} onChange={(e) => this.updateLabel(e)} />
-          </div>
-          <button className="btn btn-success btn-block" onClick={() => this.create()}>Create</button>
-        </div>
+  return (
+    <div className="card">
+      <div className="card-header">
+        Create Label Form
       </div>
-    );
-  }
+      <div className="card-body">
+        <div className="form-group">
+          <label htmlFor="label">Task Label</label>
+          <input type="text" name="label" className="form-control" value={createLabel} onChange={(e) => editCreateLabel(e.target.value)} />
+        </div>
+        <button className="btn btn-success btn-block" onClick={create}>Create</button>
+      </div>
+    </div>
+  );
 }
 
-export default CreateInput;
+const mapStateToProps = (state) => ({
+  createLabel: state.todoList.createLabel
+});
+
+const mapStateToActions = (dispatch) => ({
+  addItem: label => dispatch(TodoListAction.addItem(label)),
+  editCreateLabel: label => dispatch(TodoListAction.editCreateLabel(label)),
+  resetCreateLabel: () => dispatch(TodoListAction.resetCreateLabel())
+});
+
+export default connect(mapStateToProps, mapStateToActions)(CreateInput);
