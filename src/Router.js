@@ -9,7 +9,6 @@ function Router(){
     <Switch>
       <Route path="/" exact component={List} />
       <Route path="/create" component={CreateInput} />
-      {/*<Route path="/update/:id" exact component={Form} />*/}
       <Route to='/' />
     </Switch>
   )
