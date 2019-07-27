@@ -2,27 +2,32 @@ import React from 'react';
 import { connect } from "react-redux";
 
 import * as TodoListAction from './actions/todoList/action';
+import {Link} from "react-router-dom";
 
-function CreateInput({ createLabel, editCreateLabel, resetCreateLabel,addItem }) {
+function CreateInput({ createLabel, editCreateLabel, resetCreateLabel,addItem, history }) {
 
   function create(){
     addItem();
     resetCreateLabel();
+    history.push('/');
   }
 
   return (
-    <div className="card">
-      <div className="card-header">
-        Create Label Form
-      </div>
-      <div className="card-body">
-        <div className="form-group">
-          <label htmlFor="label">Task Label</label>
-          <input type="text" name="label" className="form-control" value={createLabel} onChange={(e) => editCreateLabel(e.target.value)} />
+    <React.Fragment>
+      <Link to={'/'} className="btn btn-secondary btn-small" >Back</Link>
+      <div className="card" style={{marginTop: 20}}>
+        <div className="card-header">
+          Create Label Form
         </div>
-        <button className="btn btn-success btn-block" onClick={create}>Create</button>
+        <div className="card-body">
+          <div className="form-group">
+            <label htmlFor="label">Task Label</label>
+            <input type="text" name="label" className="form-control" value={createLabel} onChange={(e) => editCreateLabel(e.target.value)} />
+          </div>
+          <button className="btn btn-success btn-block" onClick={create}>Create</button>
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 

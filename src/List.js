@@ -1,37 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {Link} from "react-router-dom";
 
 import * as TodoListAction from './actions/todoList/action';
 import ListItem from "./ListItem";
 
 function List({ list, changeEditStatus, editItem, changeStatus, deleteItem }){
   return (
-    <div className="card">
-      <div className="card-header">
-        Todo List
+    <React.Fragment>
+      <Link to={'/create'} className="btn btn-success btn-small" >Create</Link>
+      <div className="card"  style={{marginTop: 20}}>
+        <div className="card-header">
+          Todo List
+        </div>
+        <table className="table">
+          <thead>
+          <tr>
+            <th>Label</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          {list.map((item, index) => (
+              <ListItem
+                index={index} key={index} item={item}
+                handleChangeLabel={(e, index) => editItem(index, e.target.value)}
+                handleIsEditing={(index) => changeEditStatus(index)}
+                handleDelete={(index) => deleteItem(index)}
+                handleStatus={(index) => changeStatus(index)}
+              />
+            )
+          )}
+          </tbody>
+        </table>
       </div>
-      <table className="table">
-        <thead>
-        <tr>
-          <th>Label</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {list.map((item, index) => (
-          <ListItem
-            index={index} key={index} item={item}
-            handleChangeLabel={(e, index) => editItem(index, e.target.value)}
-            handleIsEditing={(index) => changeEditStatus(index)}
-            handleDelete={(index) => deleteItem(index)}
-            handleStatus={(index) => changeStatus(index)}
-            />
-          )
-        )}
-        </tbody>
-      </table>
-    </div>
+    </React.Fragment>
   );
 }
 
